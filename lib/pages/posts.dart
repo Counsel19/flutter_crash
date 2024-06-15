@@ -3,23 +3,24 @@
 import "dart:async";
 import "package:flutter/material.dart";
 import "package:hello_flutter/models/post_model.dart";
-import "package:hello_flutter/services/post_service.dart";
+import "package:hello_flutter/providers/post_provider.dart";
 import "package:hello_flutter/widgets/post_item.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-class AllPost extends StatefulWidget {
+class AllPost extends ConsumerStatefulWidget {
   const AllPost({super.key});
 
   @override
-  State<AllPost> createState() => _AllPostState();
+  ConsumerState<AllPost> createState() => _AllPostState();
 }
 
-class _AllPostState extends State<AllPost> {
+class _AllPostState extends ConsumerState<AllPost> {
   Future<List<Post>>? allPost;
 
   @override
   void initState() {
     super.initState();
-    allPost = PostService.getAllPosts();
+    allPost = ref.read(postProvider);
   }
 
   @override
