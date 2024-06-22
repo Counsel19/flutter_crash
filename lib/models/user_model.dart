@@ -5,4 +5,15 @@ class User {
 
   final String email;
   final String name;
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        "name": String name,
+        "email": String email,
+      } =>
+        User(name: name, email: email),
+      _ => throw const FormatException("Failed to create User")
+    };
+  }
 }

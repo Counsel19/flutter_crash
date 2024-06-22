@@ -9,7 +9,7 @@ class ListUsers extends ConsumerWidget {
   const ListUsers({super.key});
 
   @override
-  // Accept the ref property 
+  // Accept the ref property
   Widget build(BuildContext context, WidgetRef ref) {
     // Read changes from the provider using the ref
     final allUsers = ref.read(usersProvider);
@@ -17,14 +17,28 @@ class ListUsers extends ConsumerWidget {
         appBar: AppBar(
           title: const Text("List All User"),
         ),
-        body: ListView.builder(
-            itemCount: allUsers.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: const Icon(Icons.person),
-                title: Text(allUsers[index].name),
-                subtitle: Text(allUsers[index].email),
-              );
+        body: FutureBuilder(
+            future: allUsers,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Unable to Load Users"),
+                );
+              }
+              return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: const Icon(Icons.person),
+                      title: Text(snapshot.data![index].name),
+                      subtitle: Text(snapshot.data![index].email),
+                    );
+                  });
             }));
   }
 }
