@@ -5,6 +5,7 @@ import 'package:hello_flutter/constants/regex_constants.dart';
 import 'package:hello_flutter/models/user_model.dart';
 import 'package:hello_flutter/pages/list_users.dart';
 import 'package:hello_flutter/providers/users_provider.dart';
+import "package:uuid/uuid.dart";
 
 enum AllGender { male, female }
 
@@ -21,6 +22,7 @@ class _AddUserState extends ConsumerState<AddUser> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   bool hidePassword = true;
 
   AllGender? currentGender;
@@ -29,7 +31,6 @@ class _AddUserState extends ConsumerState<AddUser> {
   DateTime? dob;
   bool? isChecked = false;
   bool? isChecked1 = false;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -302,8 +303,10 @@ class _AddUserState extends ConsumerState<AddUser> {
                   onPressed: () {
                     // _formKey is a hook to the form for which the form key is assigned to
                     if (_formKey.currentState?.validate() ?? false) {
+                      const uuid = Uuid();
                       // Access the instance of the notifier class call the add user method in the Notifier class using the ref
                       ref.read(usersProvider.notifier).addNewUser(User(
+                            id: uuid.v4(),
                             name: _nameController.text,
                             email: _emailController.text,
                           ));
