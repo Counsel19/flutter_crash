@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
             ListTile(
               title: Text("Home"),
               leading: Icon(Icons.home),
@@ -69,6 +68,15 @@ class HomePage extends StatelessWidget {
                   Navigator.pushNamed(context, "/all-users");
                 },
                 child: const Text("List All Users"),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/login");
+                },
+                child: const Text("Login"),
               )
             ],
           ),

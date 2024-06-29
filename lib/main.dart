@@ -2,11 +2,13 @@
 
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:hello_flutter/pages/Login.dart";
 import "package:hello_flutter/pages/add_user.dart";
 import "package:hello_flutter/pages/admin_users.dart";
 import "package:hello_flutter/pages/home.dart";
 import "package:hello_flutter/pages/list_users.dart";
 import "package:hello_flutter/pages/posts.dart";
+import "package:hello_flutter/pages/sign_up.dart";
 import "package:hello_flutter/pages/start_screen.dart";
 
 import 'package:firebase_core/firebase_core.dart';
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
         "/all-users": (context) => const ListUsers(),
         "admin-users": (context) => const AdminUsers(),
         "/post": (context) => const AllPost(),
+        "/login": (context) => const LoginScreen(),
+        "/signup": (context) => const SignUpScreen(),
       },
       home: const StartScreen(),
     );
